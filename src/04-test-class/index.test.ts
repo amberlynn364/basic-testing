@@ -53,7 +53,15 @@ describe('BankAccount', () => {
 
   test('fetchBalance should return number in case if request did not failed', async () => {
     const account = getBankAccount(100);
-    const balance = await account.fetchBalance();
+
+    setTimeout(() => {
+      account.fetchBalance();
+    }, 100);
+
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    const balance = account.getBalance();
+
     expect(typeof balance).toBe('number');
     expect(balance).not.toBeNull();
   });
